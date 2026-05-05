@@ -12,7 +12,7 @@ function addStudents(students) {
   let valid = false;
 
   while (valid === false) {
-    
+
     studentId = parseInt(prompt("Enter the student's id: "));
 
     if (!studentId || studentId < 0) {
@@ -21,7 +21,6 @@ function addStudents(students) {
     }
 
     console.log(`Valid ID entered: ${studentId}`);
-
     valid = true;
   }
 
@@ -34,19 +33,21 @@ function addStudents(students) {
 
 
   // Students's Name
-  let studentName = prompt("Enter the student's name: ");
-
+  let studentName = "";
   valid = false;
 
-  while (valid === false)
+  while (valid === false) {
+    studentName = prompt("Enter the student's name: ");
 
-    if (!studentName){
+
+    if (!studentName) {
       console.log("Operation cancelled.");
       continue;
     }
 
-  console.log(`Name entered: ${studentName}`);
-  valid = true;
+    console.log(`Name entered: ${studentName}`);
+    valid = true;
+  }
 
   let student = {
     'id': studentId,
