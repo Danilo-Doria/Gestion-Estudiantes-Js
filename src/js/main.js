@@ -5,70 +5,73 @@ let students = [];
 // functions
 
 function addStudents(students) {
+
+  // ID validator
+  let studentId = 0;
+
   let valid = false;
 
-  let id = 0;
-
   while (valid === false) {
-    try {
-      const input = prompt("Enter the student's id: ");
-      id = Number(input);
+    
+    studentId = parseInt(prompt("Enter the student's id: "));
 
-      if (input === null) {
-        console.log("Operation cancelled.");
-        return;
-      }
-
-      if (isNaN(id)) {
-        throw new Error("ID must be a number");
-      }
-
-      if (id < 0) {
-        throw new Error("The ID must be positive");
-      }
-
-      if (input.trim() === "") {
-        throw new Error("The ID can't be empty.");
-        break;
-      }
-
-      console.log("Valid ID entered:", id);
-      valid = true;
-    } catch (error) {
-      console.error("Invalid input:", error.message);
+    if (!studentId || studentId < 0) {
+      console.log("Please enter a valid ID.");
+      continue;
     }
+
+    console.log(`Valid ID entered: ${studentId}`);
+
+    valid = true;
   }
 
-  for (let student of students) {
-    if (id === student['id']) {
+  for (let i of students) {
+    if (studentId === i['id']) {
       console.warn("This ID already exists");
       return;
     }
   }
 
-  student = {
-    'id': id
+
+  // Students's Name
+  let studentName = prompt("Enter the student's name: ");
+
+  valid = false;
+
+  while (valid === false)
+
+    if (!studentName){
+      console.log("Operation cancelled.");
+      continue;
+    }
+
+  console.log(`Name entered: ${studentName}`);
+  valid = true;
+
+  let student = {
+    'id': studentId,
+    'name': studentName
   };
 
   students.push(student);
 }
 
-function showStudents(students){
-    //console.table(students);
-    
-    if (students.length === 0){
-        console.log("The list of students is empty!!");
-        return;
-    }
+function showStudents(students) {
+  //console.table(students);
 
-    for (let student of students){
-        console.log(`ID: ${student['id']}`)
-    }
+  if (students.length === 0) {
+    console.log("The list of students is empty!!");
+    return;
+  }
+
+  for (let i of students) {
+    console.log(`ID: ${i['id']} | Name: ${i['name']}`)
+  }
 }
 
 while (option != 8) {
   console.log("\nWelcome to the Student Management System\n");
-  let input = prompt(`Select the desired option:
+  option = parseInt(prompt(`Select the desired option:
     1. Register new students
     2. Consult list of students
     3. Search student
@@ -76,12 +79,10 @@ while (option != 8) {
     5. Delete student
     6. Save in CSV file
     7. Load from CSV file
-    8. Exit`);
+    8. Exit`));
 
-  if (input === null) {
+  if (isNaN(option)) {
     option = 8;
-  } else {
-    option = Number(input);
   }
 
   switch (option) {
